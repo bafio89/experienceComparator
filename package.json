@@ -3,13 +3,16 @@
   "license": "Beerware",
   "scripts": {
     "bundle": "parcel build src/main/js/index.js --out-dir target/classes/static/dist --out-file bundle --public-url /dist",
+    "build": "npm run build src/main/js/index.js --out-dir target/classes/static/dist --out-file bundle --public-url /dist",
     "postbundle": "date-now --format='DD.MM.YYYY-HH:mm:ss (A)' | cowthink $1",
     "watch": "parcel watch src/main/js/index.js --out-dir target/classes/static/dist --out-file bundle --public-url /dist",
     "postwatch": "date-now --format='DD.MM.YYYY-HH:mm:ss (A)' | cowthink $1"
   },
   "dependencies": {
-    "react": "16.4.2",
-    "react-dom": "16.4.2",
+    "@material-ui/core": "^4.9.0",
+    "npm": "^6.13.6",
+    "react": "16.12.0",
+    "react-dom": "16.12.0",
     "styled-components": "^3.4.5"
   },
   "devDependencies": {
@@ -28,7 +31,7 @@
     "jest-dom": "1.12.0",
     "jest-junit": "5.1.0",
     "jest-localstorage-mock": "2.2.0",
-    "node-sass": "4.9.2",
+    "node-sass": "^4.13.1",
     "parcel-bundler": "1.9.3"
   },
   "jest": {

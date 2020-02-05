@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: experience-comparator
+  datasource:
+      url: jdbc:postgresql://localhost:5432/fiorellaViaggi
+      username: postgres
+      password: developer
+      max-connections: 10
+
+server.port: ${PORT:5000}

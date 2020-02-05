@@ -1,0 +1,98 @@
+import React from "react";
+import {PageStatus} from "../util/pageStatus";
+import TableContainer from "@material-ui/core/TableContainer";
+import Table from "@material-ui/core/Table";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import TableCell from "@material-ui/core/TableCell";
+import TableBody from "@material-ui/core/TableBody";
+import Paper from "@material-ui/core/Paper";
+
+const GROUP_TRAVEL_API = (nationId) => "/grouptravel/" + nationId;
+
+class GroupTravel extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            groupTravels: [],
+            nationId: []
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState, bo) {
+
+        if(prevProps !== this.props){
+            this.fecthTravelGroup();
+        }
+    }
+
+    fecthTravelGroup() {
+        fetch(GROUP_TRAVEL_API(this.props.selectedNation !== undefined ? this.props.selectedNation.id : 0))
+            .then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (data) {
+                        this.setState({
+                            groupTravels: data,
+                        });
+                    }.bind(this));
+                }
+                else {
+                    throw new Error(response.status);
+                }
+            }.bind(this))
+            .catch(function () {
+                this.setState({
+                    pageStatus: PageStatus.ERROR,
+                    errorMessage: "Oops, something goes wrong!"
+                });
+            }.bind(this));
+    }
+
+    setNationIdState(selectedNation){
+        this.setState({
+            nationId: selectedNation
+        })
+    }
+
+
+    render() {console.log(this.state.groupTravels)
+        console.log(this.props.selectedNation)
+        return (
+            <TableContainer component={Paper}>
+                <Table className={"BOBO"} aria-label="simple table">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Nome</TableCell>
+                            <TableCell align="left">Durata</TableCell>
+                            <TableCell align="left">Servizi Inclusi</TableCell>
+                            <TableCell align="left">Servizi Non Inclusi</TableCell>
+                            <TableCell align="left">Itinerario</TableCell>
+                            <TableCell align="left">Cassa Comune</TableCell>
+                            <TableCell align="left">Cos'è Incluso Nella Cassa Comune</TableCell>
+                            <TableCell align="left">Prezzo</TableCell>
+                            <TableCell align="left">Link</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {this.state.groupTravels.map(row => (
+                            <TableRow key={row.nation}>
+                                <TableCell align="left">{row.travelName}</TableCell>
+                                <TableCell align="left">{row.duration}</TableCell>
+                                <TableCell align="left">{row.services.includedServices}</TableCell>
+                                <TableCell align="left">{row.services.notIncludedServices}</TableCell>
+                                <TableCell align="left">{row.itinerary}</TableCell>
+                                <TableCell align="left">{row.commonCash.description}</TableCell>
+                                <TableCell align="left">{row.commonCash.includedServices}</TableCell>
+                                <TableCell align="left">{row.price}</TableCell>
+                                <TableCell align="left"><a href={row.tourLink} target="_blank" rel="noopener noreferrer">{row.tourLink}</a></TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        );
+    }
+}
+
+export default GroupTravel
