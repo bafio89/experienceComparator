@@ -58,7 +58,7 @@ class Travel extends React.Component {
                 getOptionLabel={option => option.title}
                 style={{ width: 300 }}
                 renderInput={params => (
-                    <TextField {...params} label="Combo box" variant="outlined" fullWidth />
+                    <TextField {...params} label="Cerca i viaggi" variant="outlined" fullWidth />
                 )}
             />
             <GroupTravel selectedNation = {this.state.selectedNation}/>

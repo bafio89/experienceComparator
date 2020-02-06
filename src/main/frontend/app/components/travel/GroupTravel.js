@@ -7,6 +7,7 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import Paper from "@material-ui/core/Paper";
+import Button from "@material-ui/core/Button";
 
 const GROUP_TRAVEL_API = (nationId) => "/grouptravel/" + nationId;
 
@@ -89,16 +90,16 @@ class GroupTravel extends React.Component {
                     </TableHead>
                     <TableBody>
                         {this.state.groupTravels.map(row => (
-                            <TableRow key={row.tourLink}>
-                                <TableCell align="left">{row.travelName}</TableCell>
-                                <TableCell align="left">{row.duration}</TableCell>
-                                <TableCell align="left">{this.adaptIncludedServices(row.services.includedServices)}</TableCell>
-                                <TableCell align="left">{this.adaptArray(row.services.notIncludedServices)}</TableCell>
-                                <TableCell align="left">{this.adaptArray(row.itinerary)}</TableCell>
-                                <TableCell align="left">{row.commonCash.description}</TableCell>
-                                <TableCell align="left">{this.adaptIncludedServices(row.commonCash.includedServices)}</TableCell>
-                                <TableCell align="left">{row.price}</TableCell>
-                                <TableCell align="left"><a href={row.tourLink} target="_blank" rel="noopener noreferrer">{row.tourLink}</a></TableCell>
+                            <TableRow key={row.tourLink} style={{fontSize:'small'}}>
+                                <TableCell align="left" style={{width:'7%', fontSize:'small'}}>{row.travelName}</TableCell>
+                                <TableCell align="left" style={{width:'8%'}}>{row.duration}</TableCell>
+                                <TableCell align="left" style={{width:'15%'}}>{this.adaptIncludedServices(row.services.includedServices)}</TableCell>
+                                <TableCell align="left" style={{width:'15%'}}>{this.adaptArray(row.services.notIncludedServices)}</TableCell>
+                                <TableCell align="left" style={{width:'13%'}}>{this.adaptArray(row.itinerary)}</TableCell>
+                                <TableCell align="left" style={{width:'15%'}}>{row.commonCash.description}</TableCell>
+                                <TableCell align="left" style={{width:'15%'}}>{this.adaptIncludedServices(row.commonCash.includedServices)}</TableCell>
+                                <TableCell align="left" style={{width:'3%'}}>{row.price}</TableCell>
+                                <TableCell align="left" style={{width:'3%'}}><Button variant="contained" color="primary" href={row.tourLink} target="_blank" rel="noopener noreferrer">Scopri</Button></TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
