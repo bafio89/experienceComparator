@@ -22,13 +22,13 @@ class GroupTravel extends React.Component {
 
     componentDidUpdate(prevProps, prevState, bo) {
 
-        if(prevProps !== this.props){
+        if(prevProps !== this.props && this.props.selectedNation != null){
             this.fecthTravelGroup();
         }
     }
 
     fecthTravelGroup() {
-        fetch(GROUP_TRAVEL_API(this.props.selectedNation !== undefined ? this.props.selectedNation.id : 0))
+        fetch(GROUP_TRAVEL_API(this.props.selectedNation.id))
             .then(function (response) {
                 if (response.ok) {
                     response.json().then(function (data) {
@@ -55,6 +55,19 @@ class GroupTravel extends React.Component {
         })
     }
 
+    adaptIncludedServices(data){
+        let adptedData = []
+        let splittedData = data[0].split("\n");
+        splittedData.forEach(it => (it !== "" ? adptedData.push(<li>{it}</li>) : it))
+        return adptedData
+    }
+
+    adaptArray(data){
+
+        let adptedData = []
+        data.forEach(it => (adptedData.push(<li>{it}</li>)));debugger
+        return adptedData
+    }
 
     render() {console.log(this.state.groupTravels)
         console.log(this.props.selectedNation)
@@ -76,14 +89,14 @@ class GroupTravel extends React.Component {
                     </TableHead>
                     <TableBody>
                         {this.state.groupTravels.map(row => (
-                            <TableRow key={row.nation}>
+                            <TableRow key={row.tourLink}>
                                 <TableCell align="left">{row.travelName}</TableCell>
                                 <TableCell align="left">{row.duration}</TableCell>
-                                <TableCell align="left">{row.services.includedServices}</TableCell>
-                                <TableCell align="left">{row.services.notIncludedServices}</TableCell>
-                                <TableCell align="left">{row.itinerary}</TableCell>
+                                <TableCell align="left">{this.adaptIncludedServices(row.services.includedServices)}</TableCell>
+                                <TableCell align="left">{this.adaptArray(row.services.notIncludedServices)}</TableCell>
+                                <TableCell align="left">{this.adaptArray(row.itinerary)}</TableCell>
                                 <TableCell align="left">{row.commonCash.description}</TableCell>
-                                <TableCell align="left">{row.commonCash.includedServices}</TableCell>
+                                <TableCell align="left">{this.adaptIncludedServices(row.commonCash.includedServices)}</TableCell>
                                 <TableCell align="left">{row.price}</TableCell>
                                 <TableCell align="left"><a href={row.tourLink} target="_blank" rel="noopener noreferrer">{row.tourLink}</a></TableCell>
                             </TableRow>
