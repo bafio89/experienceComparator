@@ -23,7 +23,7 @@ class GroupTravel extends React.Component {
 
     componentDidUpdate(prevProps, prevState, bo) {
 
-        if(prevProps !== this.props && this.props.selectedNation != null){
+        if (prevProps !== this.props && this.props.selectedNation != null) {
             this.fecthTravelGroup();
         }
     }
@@ -50,27 +50,29 @@ class GroupTravel extends React.Component {
             }.bind(this));
     }
 
-    setNationIdState(selectedNation){
+    setNationIdState(selectedNation) {
         this.setState({
             nationId: selectedNation
         })
     }
 
-    adaptIncludedServices(data){
+    adaptIncludedServices(data) {
         let adptedData = []
         let splittedData = data[0].split("\n");
         splittedData.forEach(it => (it !== "" ? adptedData.push(<li>{it}</li>) : it))
         return adptedData
     }
 
-    adaptArray(data){
+    adaptArray(data) {
 
         let adptedData = []
-        data.forEach(it => (adptedData.push(<li>{it}</li>)));debugger
+        data.forEach(it => (adptedData.push(<li>{it}</li>)));
+        debugger
         return adptedData
     }
 
-    render() {console.log(this.state.groupTravels)
+    render() {
+        console.log(this.state.groupTravels)
         console.log(this.props.selectedNation)
         return (
             <TableContainer component={Paper}>
@@ -79,27 +81,50 @@ class GroupTravel extends React.Component {
                         <TableRow>
                             <TableCell>Nome</TableCell>
                             <TableCell align="left">Durata</TableCell>
-                            <TableCell align="left">Servizi Inclusi</TableCell>
-                            <TableCell align="left">Servizi Non Inclusi</TableCell>
+                            <TableCell align="left">Servizi</TableCell>
                             <TableCell align="left">Itinerario</TableCell>
                             <TableCell align="left">Cassa Comune</TableCell>
-                            <TableCell align="left">Cos'è Incluso Nella Cassa Comune</TableCell>
                             <TableCell align="left">Prezzo</TableCell>
                             <TableCell align="left">Link</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {this.state.groupTravels.map(row => (
-                            <TableRow key={row.tourLink} style={{fontSize:'small'}}>
-                                <TableCell align="left" style={{width:'7%', fontSize:'small'}}>{row.travelName}</TableCell>
-                                <TableCell align="left" style={{width:'8%'}}>{row.duration}</TableCell>
-                                <TableCell align="left" style={{width:'15%'}}>{this.adaptIncludedServices(row.services.includedServices)}</TableCell>
-                                <TableCell align="left" style={{width:'15%'}}>{this.adaptArray(row.services.notIncludedServices)}</TableCell>
-                                <TableCell align="left" style={{width:'13%'}}>{this.adaptArray(row.itinerary)}</TableCell>
-                                <TableCell align="left" style={{width:'15%'}}>{row.commonCash.description}</TableCell>
-                                <TableCell align="left" style={{width:'15%'}}>{this.adaptIncludedServices(row.commonCash.includedServices)}</TableCell>
-                                <TableCell align="left" style={{width:'3%'}}>{row.price}</TableCell>
-                                <TableCell align="left" style={{width:'3%'}}><Button variant="contained" color="primary" href={row.tourLink} target="_blank" rel="noopener noreferrer">Scopri</Button></TableCell>
+                            <TableRow key={row.tourLink} style={{fontSize: 'small'}}>
+                                <TableCell align="left"
+                                           style={{width: '7%', fontSize: 'small'}}>{row.travelName}</TableCell>
+                                <TableCell align="left" style={{width: '8%'}}>{row.duration}</TableCell>
+                                <TableRow>
+                                    <TableCell align="left" style={{width: '20%'}}>{this.adaptIncludedServices(
+                                        row.services.includedServices)}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell align="left">Servizi Non Inclusi</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell align="left" style={{width: '20%'}}>{this.adaptArray(
+                                        row.services.notIncludedServices)}</TableCell>
+                                </TableRow>
+                                <TableCell align="left" style={{width: '13%'}}>{this.adaptArray(
+                                    row.itinerary)}
+                                </TableCell>
+                                <TableRow>
+                                    <TableCell align="left"
+                                               style={{width: '15%'}}>{row.commonCash.description}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell align="left">Cos'è Incluso Nella Cassa Comune</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell align="left" style={{width: '15%'}}>{this.adaptIncludedServices(
+                                        row.commonCash.includedServices)}</TableCell>
+                                </TableRow>
+                                <TableCell align="left" style={{width: '3%'}}>{row.price}</TableCell>
+                                <TableCell align="left" style={{width: '3%'}}><Button variant="contained"
+                                                                                      color="primary"
+                                                                                      href={row.tourLink}
+                                                                                      target="_blank"
+                                                                                      rel="noopener noreferrer">Scopri</Button></TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

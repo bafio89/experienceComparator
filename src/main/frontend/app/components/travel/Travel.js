@@ -3,9 +3,9 @@ import {PageStatus} from "../util/pageStatus";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import GroupTravel from "./GroupTravel";
+import Grid from "@material-ui/core/Grid";
 
 const EXPERIENCE_TRAVEL_API = `/grouptravel/nations`;
-
 
 class Travel extends React.Component {
 
@@ -41,28 +41,37 @@ class Travel extends React.Component {
             }.bind(this));
     }
 
-    setSelectedNation(nation){
+    setSelectedNation(nation) {
         this.setState({
             selectedNation: nation
         })
     }
 
-    render(){
+    render() {
         console.log(this.state);
 
-        return(<div>
-            <Autocomplete
-                id="combo-box-demo"
-                onChange={(event, value) => this.setSelectedNation(value)}
-                options={this.state.nations}
-                getOptionLabel={option => option.title}
-                style={{ width: 300 }}
-                renderInput={params => (
-                    <TextField {...params} label="Cerca i viaggi" variant="outlined" fullWidth />
-                )}
-            />
-            <GroupTravel selectedNation = {this.state.selectedNation}/>
-            </div>
+        return (<Grid container>
+                <Grid item xs={4}/>
+                <Grid item xs={4}>
+                    <Autocomplete
+                        id="combo-box-demo"
+                        onChange={(event, value) => this.setSelectedNation(value)}
+                        options={this.state.nations}
+                        getOptionLabel={option => option.title}
+                        style={{width: 300}}
+                        renderInput={params => (
+                            <TextField {...params} label="Cerca i viaggi" variant="outlined" fullWidth/>
+                        )}
+                    />
+                </Grid>
+                <Grid item xs={4}/>
+
+                <Grid item xs={1}/>
+                <Grid item xs={10}>
+                    <GroupTravel selectedNation={this.state.selectedNation}/>
+                </Grid>
+                <Grid item xs={1}/>
+            </Grid>
         );
 
     }
@@ -70,7 +79,7 @@ class Travel extends React.Component {
 
 function adapt(data) {
     let adaptedData = [];
-    data.forEach(it => adaptedData.push( {title: it.name, id: it.id} ))
+    data.forEach(it => adaptedData.push({title: it.name, id: it.id}))
     return adaptedData
 }
 
