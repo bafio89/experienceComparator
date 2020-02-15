@@ -73,6 +73,7 @@ class Travel extends React.Component {
                 <Grid item xs={10}>
                     <GroupTravel selectedNation={this.state.selectedNation}/>
                 </Grid>
+
                 <Grid item xs={1}/>
             </Grid>
         );

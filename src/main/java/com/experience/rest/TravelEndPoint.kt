@@ -15,6 +15,7 @@ import java.util.ArrayList
 class TravelEndPoint(val travelInfoRepository: TravelInfoRepository,
                      val nationRepository: NationRepository) {
 
+
     @GetMapping("/{nationId}")
     fun groupTravelByNation(@PathVariable nationId : Int): ArrayList<TravelInfo>? = travelInfoRepository.findByNation(nationId)
 
