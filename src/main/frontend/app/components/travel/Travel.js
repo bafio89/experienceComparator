@@ -53,16 +53,19 @@ class Travel extends React.Component {
         return (<Grid container>
                 <Grid item xs={4}/>
                 <Grid item xs={4}>
-                    <Autocomplete
-                        id="combo-box-demo"
-                        onChange={(event, value) => this.setSelectedNation(value)}
-                        options={this.state.nations}
-                        getOptionLabel={option => option.title}
-                        style={{width: 300}}
-                        renderInput={params => (
-                            <TextField {...params} label="Cerca i viaggi" variant="outlined" fullWidth/>
-                        )}
-                    />
+                    <div>
+                        <br/>
+                        <br/>
+                        <Autocomplete
+                            id="combo-box-demo"
+                            onChange={(event, value) => this.setSelectedNation(value)}
+                            options={this.state.nations}
+                            getOptionLabel={option => option.title}
+                            renderInput={params => (
+                                <TextField {...params} label="Cerca i viaggi" variant="outlined" fullWidth/>
+                            )}
+                        />
+                    </div>
                 </Grid>
                 <Grid item xs={4}/>
 

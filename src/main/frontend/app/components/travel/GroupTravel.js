@@ -1,30 +1,54 @@
 import React from "react";
 import {PageStatus} from "../util/pageStatus";
-import TableContainer from "@material-ui/core/TableContainer";
-import Table from "@material-ui/core/Table";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import TableCell from "@material-ui/core/TableCell";
-import TableBody from "@material-ui/core/TableBody";
-import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 
-const GROUP_TRAVEL_API = (nationId) => "/grouptravel/" + nationId;
+import Card from "@material-ui/core/Card";
+import CardHeader from "@material-ui/core/CardHeader";
+import Typography from "@material-ui/core/Typography";
+import {makeStyles} from "@material-ui/core/styles";
+import {red} from "@material-ui/core/colors";
+import CardContent from "@material-ui/core/CardContent";
+import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
 
+const GROUP_TRAVEL_API = (nationId) => "/grouptravel/" + nationId;
+makeStyles(theme => ({
+    root: {
+        maxWidth: 345,
+    },
+    media: {
+        height: 0,
+        paddingTop: '56.25%', // 16:9
+    },
+    expand: {
+        transform: 'rotate(0deg)',
+        marginLeft: 'auto',
+        transition: theme.transitions.create('transform', {
+            duration: theme.transitions.duration.shortest,
+        }),
+    },
+    expandOpen: {
+        transform: 'rotate(180deg)',
+    },
+    avatar: {
+        backgroundColor: red[500],
+    },
+}));
 class GroupTravel extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
             groupTravels: [],
-            nationId: []
+            nationId: [],
+            cards: []
         }
     }
 
     componentDidUpdate(prevProps, prevState, bo) {
 
         if (prevProps !== this.props && this.props.selectedNation != null) {
-            this.fecthTravelGroup();
+            this.fecthTravelGroup()
         }
     }
 
@@ -50,13 +74,8 @@ class GroupTravel extends React.Component {
             }.bind(this));
     }
 
-    setNationIdState(selectedNation) {
-        this.setState({
-            nationId: selectedNation
-        })
-    }
-
     adaptIncludedServices(data) {
+        debugger
         let adptedData = []
         let splittedData = data[0].split("\n");
         splittedData.forEach(it => (it !== "" ? adptedData.push(<li>{it}</li>) : it))
@@ -67,70 +86,81 @@ class GroupTravel extends React.Component {
 
         let adptedData = []
         data.forEach(it => (adptedData.push(<li>{it}</li>)));
-        debugger
         return adptedData
     }
 
     render() {
-        console.log(this.state.groupTravels)
-        console.log(this.props.selectedNation)
         return (
-            <TableContainer component={Paper}>
-                <Table className={"BOBO"} aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Nome</TableCell>
-                            <TableCell align="left">Durata</TableCell>
-                            <TableCell align="left">Servizi</TableCell>
-                            <TableCell align="left">Itinerario</TableCell>
-                            <TableCell align="left">Cassa Comune</TableCell>
-                            <TableCell align="left">Prezzo</TableCell>
-                            <TableCell align="left">Link</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {this.state.groupTravels.map(row => (
-                            <TableRow key={row.tourLink} style={{fontSize: 'small'}}>
-                                <TableCell align="left"
-                                           style={{width: '7%', fontSize: 'small'}}>{row.travelName}</TableCell>
-                                <TableCell align="left" style={{width: '8%'}}>{row.duration}</TableCell>
-                                <TableRow>
-                                    <TableCell align="left" style={{width: '20%'}}>{this.adaptIncludedServices(
-                                        row.services.includedServices)}</TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell align="left">Servizi Non Inclusi</TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell align="left" style={{width: '20%'}}>{this.adaptArray(
-                                        row.services.notIncludedServices)}</TableCell>
-                                </TableRow>
-                                <TableCell align="left" style={{width: '13%'}}>{this.adaptArray(
-                                    row.itinerary)}
-                                </TableCell>
-                                <TableRow>
-                                    <TableCell align="left"
-                                               style={{width: '15%'}}>{row.commonCash.description}</TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell align="left">Cos'è Incluso Nella Cassa Comune</TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell align="left" style={{width: '15%'}}>{this.adaptIncludedServices(
-                                        row.commonCash.includedServices)}</TableCell>
-                                </TableRow>
-                                <TableCell align="left" style={{width: '3%'}}>{row.price}</TableCell>
-                                <TableCell align="left" style={{width: '3%'}}><Button variant="contained"
-                                                                                      color="primary"
-                                                                                      href={row.tourLink}
-                                                                                      target="_blank"
-                                                                                      rel="noopener noreferrer">Scopri</Button></TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-        );
+            this.state.groupTravels.map(row => (<Box>
+                    <br/>
+                    <Card>
+                        <Grid container>
+                            <Grid item xs={8}>
+                                <CardHeader
+                                    title={row.travelName}
+                                    subheader={row.duration}
+                                />
+                            </Grid>
+                            <Grid item xs={2} style={{textAlign: 'right'}}>
+                                <CardHeader
+                                    title={row.price}
+                                />
+                            </Grid>
+                            <Grid item xs={2}>
+                                <div style={{textAlign: 'center'}}>
+                                    <br/>
+                                    <Button variant="contained"
+                                            color="primary"
+                                            href={row.tourLink}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            style={{cursor: 'pointer'}}>Scopri</Button>
+                                </div>
+                            </Grid>
+                        </Grid>
+                        <Grid container>
+                            <Grid item xs={3} style={{background: '#8080801c'}}>
+                                <Typography style={{marginLeft: '15px'}}>Itinerario</Typography>
+                                <CardContent>
+                                    <Typography variant="body2" color="textSecondary" component="p">
+                                        {this.adaptArray(row.itinerary)}
+                                    </Typography>
+                                </CardContent>
+                            </Grid>
+                            <Grid item xs={3}>
+                                <Typography style={{marginLeft: '15px'}}>Servizi inclusi</Typography>
+                                <CardContent>
+                                    <Typography variant="body2" color="textSecondary" component="p">
+                                        {this.adaptIncludedServices(row.services.includedServices)}
+                                    </Typography>
+                                </CardContent>
+                            </Grid>
+                            <Grid item xs={3} style={{background: '#8080801c'}}>
+                                <Typography style={{marginLeft: '15px'}}>Servizi non inclusi</Typography>
+                                <CardContent>
+                                    <Typography variant="body2" color="textSecondary" component="p">
+                                        {this.adaptArray(row.services.notIncludedServices)}
+                                    </Typography>
+                                </CardContent>
+                            </Grid>
+                            <Grid item xs={3}>
+                                <Typography style={{marginLeft: '15px'}}>Cassa comune</Typography>
+                                <CardContent>
+                                    <Typography variant="body2" color="textSecondary" component="p">
+                                        {row.commonCash.description}
+                                    </Typography>
+                                    <br/>
+                                    <Typography variant="body2" color="textSecondary" component="p">
+                                        La cassa comune include: {this.adaptIncludedServices(
+                                        row.commonCash.includedServices)}
+                                    </Typography>
+                                </CardContent>
+                            </Grid>
+                        </Grid>
+                    </Card>
+                    <br/>
+                </Box>
+            )));
     }
 }
 
