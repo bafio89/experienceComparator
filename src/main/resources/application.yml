@@ -9,4 +9,4 @@ spring:
       password: developer
       max-connections: 10
 
-server.port: ${PORT:5000}
+server.port: ${PORT:10423}
