@@ -65,6 +65,7 @@ class Travel extends React.Component {
                                 <TextField {...params} label="Cerca i viaggi" variant="outlined" fullWidth/>
                             )}
                         />
+
                     </div>
                 </Grid>
                 <Grid item xs={4}/>
