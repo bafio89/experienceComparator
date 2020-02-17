@@ -17,7 +17,8 @@ class JdbcNationRepository(val jdbcTemplate: NamedParameterJdbcTemplate) : Natio
     }
 
     override fun findAll(): List<Nation>? {
-        return jdbcTemplate.query("SELECT * FROM tourscanner.nation order by id asc", mapResultInANation())
+        return jdbcTemplate.query("SELECT * FROM tourscanner.nation order by " +
+                "name asc", mapResultInANation())
     }
 
 
