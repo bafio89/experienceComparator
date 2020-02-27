@@ -4,6 +4,7 @@ import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import GroupTravel from "./GroupTravel";
 import Grid from "@material-ui/core/Grid";
+import Alert from "@material-ui/lab/Alert";
 
 const EXPERIENCE_TRAVEL_API = `/grouptravel/nations`;
 
@@ -50,39 +51,62 @@ class Travel extends React.Component {
     render() {
         console.log(this.state);
 
-        return (<Grid container>
-                <Grid item xs={4}/>
-                <Grid item xs={4}>
+        if (window.matchMedia("all and (max-width: 667px)").matches) {
+            return (<div>
+                    <Autocomplete
+                        id="combo-box-demo"
+                        onChange={(event, value) => this.setSelectedNation(value)}
+                        options={this.state.nations}
+                        getOptionLabel={option => option.title}
+                        renderInput={params => (
+                            <TextField {...params} label="Cerca i viaggi" variant="outlined" fullWidth/>
+                        )}
+                    />
                     <div>
-                        <br/>
-                        <br/>
-                        <Autocomplete
-                            id="combo-box-demo"
-                            onChange={(event, value) => this.setSelectedNation(value)}
-                            options={this.state.nations}
-                            getOptionLabel={option => option.title}
-                            renderInput={params => (
-                                <TextField {...params} label="Cerca i viaggi" variant="outlined" fullWidth/>
-                            )}
-                        />
-
+                        <GroupTravel selectedNation={this.state.selectedNation}/>
                     </div>
-                </Grid>
-                <Grid item xs={4}/>
+                </div>
+            );
+        }
+        else {
+            return (<div>
+                    <Grid container>
+                        <Grid item xs={4}/>
+                        <Grid item xs={4}>
+                            <div>
+                                <br/>
+                                <br/>
+                                <Autocomplete
+                                    id="combo-box-demo"
+                                    onChange={(event, value) => this.setSelectedNation(value)}
+                                    options={this.state.nations}
+                                    getOptionLabel={option => option.title}
+                                    renderInput={params => (
+                                        <TextField {...params} label="Cerca i viaggi" variant="outlined" fullWidth/>
+                                    )}
+                                />
 
-                <Grid item xs={1}/>
-                <Grid item xs={10}>
-                    <GroupTravel selectedNation={this.state.selectedNation}/>
-                </Grid>
+                            </div>
+                        </Grid>
+                        <Grid item xs={4}/>
 
-                <Grid item xs={1}/>
-            </Grid>
-        );
+                        <Grid item xs={1}/>
+                        <Grid item xs={10}>
+                            <GroupTravel selectedNation={this.state.selectedNation}/>
+                        </Grid>
 
+                        <Grid item xs={1}/>
+                    </Grid>
+                </div>
+
+            );
+        }
     }
 }
 
-function adapt(data) {
+function
+
+adapt(data) {
     let adaptedData = [];
     data.forEach(it => adaptedData.push({title: it.name, id: it.id}))
     return adaptedData

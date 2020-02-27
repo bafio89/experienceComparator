@@ -10,6 +10,9 @@ import {red} from "@material-ui/core/colors";
 import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
+import ExpansionPanel from "@material-ui/core/ExpansionPanel";
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 
 const GROUP_TRAVEL_API = (nationId) => "/grouptravel/" + nationId;
 makeStyles(theme => ({
@@ -34,6 +37,7 @@ makeStyles(theme => ({
         backgroundColor: red[500],
     },
 }));
+
 class GroupTravel extends React.Component {
 
     constructor(props) {
@@ -75,7 +79,7 @@ class GroupTravel extends React.Component {
     }
 
     adaptIncludedServices(data) {
-        debugger
+
         let adptedData = []
         let splittedData = data[0].split("\n");
         splittedData.forEach(it => (it !== "" ? adptedData.push(<li>{it}</li>) : it))
@@ -90,77 +94,154 @@ class GroupTravel extends React.Component {
     }
 
     render() {
-        return (
-            this.state.groupTravels.map(row => (<Box>
-                    <br/>
-                    <Card>
-                        <Grid container>
-                            <Grid item xs={8}>
-                                <CardHeader
-                                    title={row.travelName}
-                                    subheader={row.duration}
-                                />
+        if (window.matchMedia("all and (max-width: 667px)").matches) {
+            console.log("piccolo schermo")
+
+            return (this.state.groupTravels.map(row => (<Box>
+                <br/>
+                <Card>
+                    <CardHeader style={{textAlign:'center'}}
+                        title={row.travelName}
+                        subheader={row.duration}
+                    />
+                    <ExpansionPanel>
+                        <ExpansionPanelSummary
+                            aria-controls="panel1a-content"
+                            id="panel1a-header"
+                        >
+                            <Typography>Itinerario</Typography>
+                        </ExpansionPanelSummary>
+                        <ExpansionPanelDetails>
+                            <Typography>
+                                {this.adaptArray(row.itinerary)}
+                            </Typography>
+                        </ExpansionPanelDetails>
+                    </ExpansionPanel>
+                    <ExpansionPanel>
+                        <ExpansionPanelSummary
+                            aria-controls="panel1a-content"
+                            id="panel1a-header"
+                        >
+                            <Typography>Servizi inclusi</Typography>
+                        </ExpansionPanelSummary>
+                        <ExpansionPanelDetails>
+                            <Typography>
+                                {this.adaptIncludedServices(row.services.includedServices)}
+                            </Typography>
+                        </ExpansionPanelDetails>
+                    </ExpansionPanel>
+                    <ExpansionPanel>
+                        <ExpansionPanelSummary
+                            aria-controls="panel1a-content"
+                            id="panel1a-header"
+                        >
+                            <Typography>Servizi non inclusi</Typography>
+                        </ExpansionPanelSummary>
+                        <ExpansionPanelDetails>
+                            <Typography>
+                                {this.adaptIncludedServices(row.services.notIncludedServices)}
+                            </Typography>
+                        </ExpansionPanelDetails>
+                    </ExpansionPanel>
+                    <ExpansionPanel style={{margin: 0}}>
+                        <ExpansionPanelSummary
+                            aria-controls="panel1a-content"
+                            id="panel1a-header"
+                        >
+                            <Typography>Cassa Comune</Typography>
+                        </ExpansionPanelSummary>
+                        <ExpansionPanelDetails>
+                            <Typography>
+                                La cassa comune include: {this.adaptIncludedServices(row.commonCash.includedServices)}
+                            </Typography>
+                        </ExpansionPanelDetails>
+                    </ExpansionPanel>
+                    <Typography style={{textAlign: 'center', margin: '5%'}}
+                                classes={'MuiTypography-body1'}>Prezzo: {row.price}</Typography>
+                    <Button variant="contained"
+                            color="primary"
+                            href={row.tourLink}
+                            target="_blank"
+                            rel="noopener noreferrer" npm
+                            style={{cursor: 'pointer', width: '100%'}}>Scopri</Button>
+
+                </Card>
+            </Box>)));
+        }
+        else {
+            return (
+                this.state.groupTravels.map(row => (<Box>
+                        <br/>
+                        <Card>
+                            <Grid container>
+                                <Grid item xs={8}>
+                                    <CardHeader
+                                        title={row.travelName}
+                                        subheader={row.duration}
+                                    />
+                                </Grid>
+                                <Grid item xs={2} style={{textAlign: 'right'}}>
+                                    <CardHeader
+                                        title={row.price}
+                                    />
+                                </Grid>
+                                <Grid item xs={2}>
+                                    <div style={{textAlign: 'center'}}>
+                                        <br/>
+                                        <Button variant="contained"
+                                                color="primary"
+                                                href={row.tourLink}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                style={{cursor: 'pointer'}}>Scopri</Button>
+                                    </div>
+                                </Grid>
                             </Grid>
-                            <Grid item xs={2} style={{textAlign: 'right'}}>
-                                <CardHeader
-                                    title={row.price}
-                                />
+                            <Grid container>
+                                <Grid item xs={3} style={{background: '#8080801c'}}>
+                                    <Typography style={{marginLeft: '15px'}}>Itinerario</Typography>
+                                    <CardContent>
+                                        <Typography variant="body2" color="textSecondary" component="p">
+                                            {this.adaptArray(row.itinerary)}
+                                        </Typography>
+                                    </CardContent>
+                                </Grid>
+                                <Grid item xs={3}>
+                                    <Typography style={{marginLeft: '15px'}}>Servizi inclusi</Typography>
+                                    <CardContent>
+                                        <Typography variant="body2" color="textSecondary" component="p">
+                                            {this.adaptIncludedServices(row.services.includedServices)}
+                                        </Typography>
+                                    </CardContent>
+                                </Grid>
+                                <Grid item xs={3} style={{background: '#8080801c'}}>
+                                    <Typography style={{marginLeft: '15px'}}>Servizi non inclusi</Typography>
+                                    <CardContent>
+                                        <Typography variant="body2" color="textSecondary" component="p">
+                                            {this.adaptArray(row.services.notIncludedServices)}
+                                        </Typography>
+                                    </CardContent>
+                                </Grid>
+                                <Grid item xs={3}>
+                                    <Typography style={{marginLeft: '15px'}}>Cassa comune</Typography>
+                                    <CardContent>
+                                        <Typography variant="body2" color="textSecondary" component="p">
+                                            {row.commonCash.description}
+                                        </Typography>
+                                        <br/>
+                                        <Typography variant="body2" color="textSecondary" component="p">
+                                            La cassa comune include: {this.adaptIncludedServices(
+                                            row.commonCash.includedServices)}
+                                        </Typography>
+                                    </CardContent>
+                                </Grid>
                             </Grid>
-                            <Grid item xs={2}>
-                                <div style={{textAlign: 'center'}}>
-                                    <br/>
-                                    <Button variant="contained"
-                                            color="primary"
-                                            href={row.tourLink}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            style={{cursor: 'pointer'}}>Scopri</Button>
-                                </div>
-                            </Grid>
-                        </Grid>
-                        <Grid container>
-                            <Grid item xs={3} style={{background: '#8080801c'}}>
-                                <Typography style={{marginLeft: '15px'}}>Itinerario</Typography>
-                                <CardContent>
-                                    <Typography variant="body2" color="textSecondary" component="p">
-                                        {this.adaptArray(row.itinerary)}
-                                    </Typography>
-                                </CardContent>
-                            </Grid>
-                            <Grid item xs={3}>
-                                <Typography style={{marginLeft: '15px'}}>Servizi inclusi</Typography>
-                                <CardContent>
-                                    <Typography variant="body2" color="textSecondary" component="p">
-                                        {this.adaptIncludedServices(row.services.includedServices)}
-                                    </Typography>
-                                </CardContent>
-                            </Grid>
-                            <Grid item xs={3} style={{background: '#8080801c'}}>
-                                <Typography style={{marginLeft: '15px'}}>Servizi non inclusi</Typography>
-                                <CardContent>
-                                    <Typography variant="body2" color="textSecondary" component="p">
-                                        {this.adaptArray(row.services.notIncludedServices)}
-                                    </Typography>
-                                </CardContent>
-                            </Grid>
-                            <Grid item xs={3}>
-                                <Typography style={{marginLeft: '15px'}}>Cassa comune</Typography>
-                                <CardContent>
-                                    <Typography variant="body2" color="textSecondary" component="p">
-                                        {row.commonCash.description}
-                                    </Typography>
-                                    <br/>
-                                    <Typography variant="body2" color="textSecondary" component="p">
-                                        La cassa comune include: {this.adaptIncludedServices(
-                                        row.commonCash.includedServices)}
-                                    </Typography>
-                                </CardContent>
-                            </Grid>
-                        </Grid>
-                    </Card>
-                    <br/>
-                </Box>
-            )));
+                        </Card>
+                        <br/>
+                    </Box>
+                ))
+            );
+        }
     }
 }
 
