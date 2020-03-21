@@ -8,15 +8,19 @@ import Typography from "@material-ui/core/Typography";
 import CardContent from "@material-ui/core/CardContent";
 import {adaptIncludedServices, adaptIncludedServicesWithPrefix, adaptArray} from '../util/adaptTravel.js'
 import {makeStyles} from "@material-ui/core/styles";
+import {AirportShuttle, AirportShuttleOutlined} from "@material-ui/icons";
 
 const priceStyle = {
     textAlign: 'center'
 }
 
-const subtitlesStyle = {
-    fontWeight: 'bold',
+const subtitlesHeader = {
     marginLeft: '15px',
     marginTop: '10px'
+}
+
+const subtitlesFontStyle = {
+    fontWeight: 'bold'
 
 }
 
@@ -62,7 +66,14 @@ class TravelCard extends React.Component {
                     </Grid>
                     <Grid container>
                         <Grid item xs={3} style={contentCell}>
-                            <Typography style={subtitlesStyle}>Itinerario</Typography>
+                            <Grid container style={subtitlesHeader}>
+                                <Grid item xs={1}>
+                                    <AirportShuttleOutlined fontSize="small"/>
+                                </Grid>
+                                <Grid item xs={11}>
+                                    <Typography style={subtitlesFontStyle}>Itinerario</Typography>
+                                </Grid>
+                            </Grid>
                             <CardContent>
                                 <Typography variant="body2" color="textSecondary" component="p">
                                     {adaptArray(this.props.nation.itinerary)}
@@ -70,7 +81,7 @@ class TravelCard extends React.Component {
                             </CardContent>
                         </Grid>
                         <Grid item xs={3} style={contentCell}>
-                            <Typography style={subtitlesStyle}>Servizi inclusi</Typography>
+                            <Typography style={subtitlesFontStyle}>Servizi inclusi</Typography>
                             <CardContent>
                                 <Typography variant="body2" color="textSecondary" component="p">
                                     {adaptIncludedServices(this.props.nation.services.includedServices)}
@@ -78,7 +89,7 @@ class TravelCard extends React.Component {
                             </CardContent>
                         </Grid>
                         <Grid item xs={3} style={contentCell}>
-                            <Typography style={subtitlesStyle}>Servizi non inclusi</Typography>
+                            <Typography style={subtitlesFontStyle}>Servizi non inclusi</Typography>
                             <CardContent>
                                 <Typography variant="body2" color="textSecondary" component="p">
                                     {adaptArray(this.props.nation.services.notIncludedServices)}
@@ -86,7 +97,7 @@ class TravelCard extends React.Component {
                             </CardContent>
                         </Grid>
                         <Grid item xs={3} style={contentCell}>
-                            <Typography style={subtitlesStyle}>Cassa comune</Typography>
+                            <Typography style={subtitlesFontStyle}>Cassa comune</Typography>
                             <CardContent>
                                 <Typography variant="body2" color="textSecondary" component="p">
                                     {this.props.nation.commonCash.description}
