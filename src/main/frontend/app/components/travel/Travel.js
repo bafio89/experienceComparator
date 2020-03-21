@@ -5,6 +5,7 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import GroupTravel from "./GroupTravel";
 import Grid from "@material-ui/core/Grid";
 import Alert from "@material-ui/lab/Alert";
+import Typography from "@material-ui/core/Typography";
 
 const EXPERIENCE_TRAVEL_API = `/grouptravel/nations`;
 
@@ -71,6 +72,15 @@ class Travel extends React.Component {
         else {
             return (<div>
                     <Grid container>
+
+                        <Grid item xs={2}/>
+                        <Grid item xs={8}>
+                            <Typography>
+                                Nella vita potrai accumulare valore, ma non potrai mai conservare il tuo tempo. Consumare e possedere cose è veramente più semplice che vivere esperienze. Le cose hanno solo bisogno di soldi. Le esperienze hanno bisogno di soldi e di tempo. Usa il tuo tempo con saggezza, spedirlo dove il bisogno di avventura ti porta. TiMeMe, cerca la tua nuova esperienza:
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={2}/>
+
                         <Grid item xs={4}/>
                         <Grid item xs={4}>
                             <div>
