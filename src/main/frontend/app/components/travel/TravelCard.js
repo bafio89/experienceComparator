@@ -8,7 +8,8 @@ import Typography from "@material-ui/core/Typography";
 import CardContent from "@material-ui/core/CardContent";
 import {adaptIncludedServices, adaptIncludedServicesWithPrefix, adaptArray} from '../util/adaptTravel.js'
 import {makeStyles} from "@material-ui/core/styles";
-import {AirportShuttle, AirportShuttleOutlined} from "@material-ui/icons";
+import {AirportShuttle, AirportShuttleOutlined, CheckCircle, Clear, MonetizationOn} from "@material-ui/icons";
+import {green} from "@material-ui/core/colors";
 
 const priceStyle = {
     textAlign: 'center'
@@ -68,7 +69,7 @@ class TravelCard extends React.Component {
                         <Grid item xs={3} style={contentCell}>
                             <Grid container style={subtitlesHeader}>
                                 <Grid item xs={1}>
-                                    <AirportShuttleOutlined fontSize="small"/>
+                                    <AirportShuttleOutlined fontSize="small" color={"primary"}/>
                                 </Grid>
                                 <Grid item xs={11}>
                                     <Typography style={subtitlesFontStyle}>Itinerario</Typography>
@@ -81,7 +82,14 @@ class TravelCard extends React.Component {
                             </CardContent>
                         </Grid>
                         <Grid item xs={3} style={contentCell}>
-                            <Typography style={subtitlesFontStyle}>Servizi inclusi</Typography>
+                            <Grid container style={subtitlesHeader}>
+                                <Grid item xs={1}>
+                                    <CheckCircle fontSize="small" style={{color: green[500]}}/>
+                                </Grid>
+                                <Grid item xs={11}>
+                                    <Typography style={subtitlesFontStyle}>Servizi inclusi</Typography>
+                                </Grid>
+                            </Grid>
                             <CardContent>
                                 <Typography variant="body2" color="textSecondary" component="p">
                                     {adaptIncludedServices(this.props.nation.services.includedServices)}
@@ -89,7 +97,14 @@ class TravelCard extends React.Component {
                             </CardContent>
                         </Grid>
                         <Grid item xs={3} style={contentCell}>
-                            <Typography style={subtitlesFontStyle}>Servizi non inclusi</Typography>
+                            <Grid container style={subtitlesHeader}>
+                                <Grid item xs={1}>
+                                    <Clear fontSize="small" color="secondary"/>
+                                </Grid>
+                                <Grid item xs={11}>
+                                    <Typography style={subtitlesFontStyle}>Servizi non inclusi</Typography>
+                                </Grid>
+                            </Grid>
                             <CardContent>
                                 <Typography variant="body2" color="textSecondary" component="p">
                                     {adaptArray(this.props.nation.services.notIncludedServices)}
@@ -97,7 +112,14 @@ class TravelCard extends React.Component {
                             </CardContent>
                         </Grid>
                         <Grid item xs={3} style={contentCell}>
-                            <Typography style={subtitlesFontStyle}>Cassa comune</Typography>
+                            <Grid container style={subtitlesHeader}>
+                                <Grid item xs={1}>
+                                    <MonetizationOn fontSize="small" color="primary"/>
+                                </Grid>
+                                <Grid item xs={11}>
+                                    <Typography style={subtitlesFontStyle}>Cassa comune</Typography>
+                                </Grid>
+                            </Grid>
                             <CardContent>
                                 <Typography variant="body2" color="textSecondary" component="p">
                                     {this.props.nation.commonCash.description}

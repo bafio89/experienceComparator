@@ -9,7 +9,9 @@ import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import Button from "@material-ui/core/Button";
 import {adaptIncludedServices, adaptIncludedServicesWithPrefix, adaptArray} from '../util/adaptTravel.js'
 import {makeStyles} from "@material-ui/core/styles";
-import {red} from "@material-ui/core/colors";
+import {green, red} from "@material-ui/core/colors";
+import Grid from "@material-ui/core/Grid";
+import {AirportShuttleOutlined, CheckCircle, Clear, MonetizationOn} from "@material-ui/icons";
 
 const discoverButtonStyle = {
     cursor: 'pointer',
@@ -21,7 +23,7 @@ const priceStyle = {
     margin: '5%'
 };
 
-const subtitles = {
+const subtitlesFontStyle = {
     fontWeight: 'bold'
 };
 
@@ -41,7 +43,14 @@ class TravelCardMobile extends React.Component {
                         aria-controls="panel1a-content"
                         id="panel1a-header"
                     >
-                        <Typography style={subtitles}>Itinerario</Typography>
+                        <Grid container>
+                            <Grid item xs={1}>
+                                <AirportShuttleOutlined fontSize="small" color={"primary"}/>
+                            </Grid>
+                            <Grid item xs={11}>
+                                <Typography style={subtitlesFontStyle}>Itinerario</Typography>
+                            </Grid>
+                        </Grid>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
                         <Typography>
@@ -54,7 +63,14 @@ class TravelCardMobile extends React.Component {
                         aria-controls="panel1a-content"
                         id="panel1a-header"
                     >
-                        <Typography style={subtitles}>Servizi inclusi</Typography>
+                        <Grid container>
+                            <Grid item xs={1}>
+                                <CheckCircle fontSize="small" style={{color: green[500]}}/>
+                            </Grid>
+                            <Grid item xs={11}>
+                                <Typography style={subtitlesFontStyle}>Servizi inclusi</Typography>
+                            </Grid>
+                        </Grid>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
                         <Typography>
@@ -67,7 +83,14 @@ class TravelCardMobile extends React.Component {
                         aria-controls="panel1a-content"
                         id="panel1a-header"
                     >
-                        <Typography style={subtitles}>Servizi non inclusi</Typography>
+                        <Grid container>
+                            <Grid item xs={1}>
+                                <Clear fontSize="small" color="secondary"/>
+                            </Grid>
+                            <Grid item xs={11}>
+                                <Typography style={subtitlesFontStyle}>Servizi non inclusi</Typography>
+                            </Grid>
+                        </Grid>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
                         <Typography>
@@ -80,7 +103,14 @@ class TravelCardMobile extends React.Component {
                         aria-controls="panel1a-content"
                         id="panel1a-header"
                     >
-                        <Typography style={subtitles}>Cassa Comune</Typography>
+                        <Grid container>
+                            <Grid item xs={1}>
+                                <MonetizationOn fontSize="small" color="primary"/>
+                            </Grid>
+                            <Grid item xs={11}>
+                                <Typography style={subtitlesFontStyle}>Cassa comune</Typography>
+                            </Grid>
+                        </Grid>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
                         <Typography>
@@ -89,14 +119,14 @@ class TravelCardMobile extends React.Component {
                     </ExpansionPanelDetails>
                 </ExpansionPanel>
                 <Typography
-                            classes={'MuiTypography-body1'} style={priceStyle}>Prezzo: {this.props.nation.price}</Typography>
+                    classes={'MuiTypography-body1'} style={priceStyle}>Prezzo: {this.props.nation.price}</Typography>
                 <Button variant="contained"
                         color="primary"
                         href={this.props.tourLink}
                         target="_blank"
                         rel="noopener noreferrer"
                         style={discoverButtonStyle}
-                        >Scopri</Button>
+                >Scopri</Button>
 
             </Card>
         </Box>);

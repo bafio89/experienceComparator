@@ -60,7 +60,7 @@ class Travel extends React.Component {
                         options={this.state.nations}
                         getOptionLabel={option => option.title}
                         renderInput={params => (
-                            <TextField {...params} label="Cerca i viaggi" variant="outlined" fullWidth/>
+                            <TextField {...params} label="Dove vuoi andare?" variant="outlined" fullWidth/>
                         )}
                     />
                     <div>
@@ -92,7 +92,7 @@ class Travel extends React.Component {
                                     options={this.state.nations}
                                     getOptionLabel={option => option.title}
                                     renderInput={params => (
-                                        <TextField {...params} label="Cerca i viaggi" variant="outlined" fullWidth/>
+                                        <TextField {...params} label="Dove vuoi andare?" variant="outlined" fullWidth/>
                                     )}
                                 />
 
