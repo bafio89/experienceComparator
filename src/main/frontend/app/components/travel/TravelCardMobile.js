@@ -122,7 +122,7 @@ class TravelCardMobile extends React.Component {
                     classes={'MuiTypography-body1'} style={priceStyle}>Prezzo: {this.props.nation.price}</Typography>
                 <Button variant="contained"
                         color="primary"
-                        href={this.props.tourLink}
+                        href={this.props.nation.tourLink}
                         target="_blank"
                         rel="noopener noreferrer"
                         style={discoverButtonStyle}

@@ -6,6 +6,9 @@ import GroupTravel from "./GroupTravel";
 import Grid from "@material-ui/core/Grid";
 import Alert from "@material-ui/lab/Alert";
 import Typography from "@material-ui/core/Typography";
+import CardMedia from "@material-ui/core/CardMedia";
+import logo from "../../../../resources/static/logo.png";
+
 
 const EXPERIENCE_TRAVEL_API = `/grouptravel/nations`;
 
@@ -54,6 +57,13 @@ class Travel extends React.Component {
 
         if (window.matchMedia("all and (max-width: 667px)").matches) {
             return (<div>
+                    <CardMedia
+                        component="img"
+                        height="50%"
+                        width="100%"
+                        image="logo.png"
+                        title="cuckooTribe"
+                    />
                     <Autocomplete
                         id="combo-box-demo"
                         onChange={(event, value) => this.setSelectedNation(value)}
@@ -75,6 +85,13 @@ class Travel extends React.Component {
 
                         <Grid item xs={2}/>
                         <Grid item xs={8}>
+                            <CardMedia
+                                component="img"
+                                height="50%"
+                                width="100%"
+                                image="logo.png"
+                                title="cuckooTribe"
+                            />
                             <Typography>
                                 Nella vita potrai accumulare valore, ma non potrai mai conservare il tuo tempo. Consumare e possedere cose è veramente più semplice che vivere esperienze. Le cose hanno solo bisogno di soldi. Le esperienze hanno bisogno di soldi e di tempo. Usa il tuo tempo con saggezza, spedirlo dove il bisogno di avventura ti porta. TiMeMe, cerca la tua nuova esperienza:
                             </Typography>
