@@ -7,8 +7,8 @@ import Grid from "@material-ui/core/Grid";
 import Alert from "@material-ui/lab/Alert";
 import Typography from "@material-ui/core/Typography";
 import CardMedia from "@material-ui/core/CardMedia";
-import logo from "../../../../resources/static/logo.png";
-
+import {Card} from "@material-ui/core";
+import Paper from "@material-ui/core/Paper";
 
 const EXPERIENCE_TRAVEL_API = `/grouptravel/nations`;
 
@@ -56,21 +56,35 @@ class Travel extends React.Component {
         console.log(this.state);
 
         if (window.matchMedia("all and (max-width: 667px)").matches) {
-            return (<div>
-                    <CardMedia
-                        component="img"
-                        height="50%"
-                        width="100%"
-                        image="logo.png"
-                        title="cuckooTribe"
-                    />
+            return (<div style={{
+                    backgroundImage: 'url("images/home.png")',
+                    height: '219px',
+                    backgroundPositionX: 'center',
+                    backgroundPositionY: '-25px',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundSize: 'cover'
+                }}>
+                    <Card style={{
+                        maxWidth: '100%',
+                        background: 'none',
+                        marginBottom: "-7px",
+                        boxShadow: "none"
+                    }}>
+                        <CardMedia
+                            component="img"
+                            height="50%"
+                            width="100%"
+                            image="logo.png"
+                            title="cuckooTribe"
+                        />
+                    </Card>
                     <Autocomplete
                         id="combo-box-demo"
                         onChange={(event, value) => this.setSelectedNation(value)}
                         options={this.state.nations}
                         getOptionLabel={option => option.title}
                         renderInput={params => (
-                            <TextField {...params} label="Dove vuoi andare?" variant="outlined" fullWidth/>
+                            <TextField style={{backgroundColor: "white"}} {...params} label="Dove vuoi andare?" variant="outlined" fullWidth/>
                         )}
                     />
                     <div>
@@ -80,26 +94,39 @@ class Travel extends React.Component {
             );
         }
         else {
-            return (<div>
+            return (
+                <div style={{
+                    backgroundImage: 'url("images/home.png")',
+                    height: '400px',
+                    margin: '-16px',
+                    backgroundPositionX: 'center',
+                    backgroundPositionY: '-25px',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundSize: 'cover'
+                }}>
                     <Grid container>
-
-                        <Grid item xs={2}/>
-                        <Grid item xs={8}>
-                            <CardMedia
-                                component="img"
-                                height="50%"
-                                width="100%"
-                                image="logo.png"
-                                title="cuckooTribe"
-                            />
-                            <Typography>
-                                Nella vita potrai accumulare valore, ma non potrai mai conservare il tuo tempo. Consumare e possedere cose è veramente più semplice che vivere esperienze. Le cose hanno solo bisogno di soldi. Le esperienze hanno bisogno di soldi e di tempo. Usa il tuo tempo con saggezza, spedirlo dove il bisogno di avventura ti porta. TiMeMe, cerca la tua nuova esperienza:
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={2}/>
-
                         <Grid item xs={4}/>
                         <Grid item xs={4}>
+                            <Card style={{
+                                maxWidth: '100%',
+                                background: 'none',
+                                marginTop: '190px',
+                                marginBottom: "-36px",
+                                boxShadow: "none"
+                            }}>
+                                <CardMedia
+                                    component="img"
+                                    height="75%"
+                                    width="100%"
+                                    image="logo.png"
+                                    title="cuckooTribe"
+                                />
+                            </Card>
+                        </Grid>
+                        <Grid item xs={4}/>
+
+                        <Grid item xs={4}/>
+                        <Grid item xs={4} style={{paddingLeft: '20px'}}>
                             <div>
                                 <br/>
                                 <br/>
@@ -109,23 +136,28 @@ class Travel extends React.Component {
                                     options={this.state.nations}
                                     getOptionLabel={option => option.title}
                                     renderInput={params => (
-                                        <TextField {...params} label="Dove vuoi andare?" variant="outlined" fullWidth/>
+                                        <TextField {...params} style={{backgroundColor: "white"}}
+                                                   label="Dove vuoi andare?" variant="outlined"
+                                                   fullWidth/>
                                     )}
                                 />
 
                             </div>
                         </Grid>
                         <Grid item xs={4}/>
+                    </Grid>
+
+                    <Grid container>
 
                         <Grid item xs={1}/>
-                        <Grid item xs={10}>
+                        <Grid item xs={10} style={{marginTop: '33px'}}>
                             <GroupTravel selectedNation={this.state.selectedNation}/>
                         </Grid>
 
                         <Grid item xs={1}/>
                     </Grid>
-                </div>
 
+                </div>
             );
         }
     }

@@ -36,38 +36,16 @@ class GroupTravel extends React.Component {
         super(props);
         this.state = {
             groupTravels: [],
-            nationId: [],
-            cards: []
+            images: []
         }
     }
 
     componentDidUpdate(prevProps, prevState, bo) {
 
         if (prevProps !== this.props && this.props.selectedNation != null) {
-            this.fecthTravelGroup()
+            this.fecthTravelGroup();
+            this.fetchImages()
         }
-    }
-
-    fecthTravelGroup() {
-        fetch(GROUP_TRAVEL_API(this.props.selectedNation.id))
-            .then(function (response) {
-                if (response.ok) {
-                    response.json().then(function (data) {
-                        this.setState({
-                            groupTravels: data,
-                        });
-                    }.bind(this));
-                }
-                else {
-                    throw new Error(response.status);
-                }
-            }.bind(this))
-            .catch(function () {
-                this.setState({
-                    pageStatus: PageStatus.ERROR,
-                    errorMessage: "Oops, something goes wrong!"
-                });
-            }.bind(this));
     }
 
     adaptIncludedServices(data) {
@@ -96,7 +74,45 @@ class GroupTravel extends React.Component {
         return adptedData
     }
 
+    fecthTravelGroup() {
+        fetch(GROUP_TRAVEL_API(this.props.selectedNation.id))
+            .then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (data) {
+                        this.setState({
+                            groupTravels: data,
+                        });
+
+                    }.bind(this));
+                }
+                else {
+                    throw new Error(response.status);
+                }
+            }.bind(this))
+            .catch(function () {
+                this.setState({
+                    pageStatus: PageStatus.ERROR,
+                    errorMessage: "Oops, something goes wrong!"
+                });
+            }.bind(this));
+
+    }
+
+    fetchImages() {
+        fetch("https://pixabay.com/api/?key=15682148-b1e9b4ecfe0388878dc67757d&q=" + this.props.selectedNation.title)
+            .then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (data) {
+                        this.setState({
+                            images: data.hits,
+                        });
+                    }.bind(this))
+                }
+            }.bind(this))
+    }
+
     render() {
+
         if (window.matchMedia("all and (max-width: 667px)").matches) {
             console.log("piccolo schermo")
 
