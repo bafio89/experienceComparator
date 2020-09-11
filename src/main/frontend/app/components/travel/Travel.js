@@ -67,6 +67,7 @@ class Travel extends React.Component {
                     <Card style={{
                         maxWidth: '100%',
                         background: 'none',
+                        marginTop: '-15px',
                         marginBottom: "-7px",
                         boxShadow: "none"
                     }}>
